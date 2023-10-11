@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Salon Bookings</title>
+    <link rel="stylesheet" href="SalonStyle.css">
+</head>
+
+<body>
+    <nav>
+        <h1>Welcome to <a class="A2" href="#"><strong>HAIR AND BEAUTY</strong></a></h1>
+    </nav>
+    <div class="SuperBox">
+        <div  class="rightBox">
+            <!-- Add your image source here -->
+            <img class="change"id="image" src="96522279-beauty-salon-and-hairdresser-for-women-symbol-design.jpg" alt="Salon Image">
+        </div>
+        <div class="leftBox">
+            <form id="signUpForm">
+                <label><strong>Enter Your Name:</strong></label><br>
+                <input value="" type="text" placeholder="Enter Your Name" id="name"><br>
+
+                <label><strong>Enter Your Surname:</strong></label><br>
+                <input value="" type="text" placeholder="Enter Your Surname" id="surname"><br>
+
+                <label><strong>Email Address:</strong></label><br>
+                <input value="" type="text" placeholder="Enter Your Email" id="email"><br>
+
+                <label><strong>Cellphone Number:</strong></label><br>
+                <input value="" type="tel" name="phone" placeholder="[+27] ** *** ****" id="phone"><br>
+
+                <label><strong>Password:</strong></label><br>
+                <input value="" type="password" placeholder="Enter password" id="password"><br>
+
+                <label><strong>Confirm Password:</strong></label><br>
+                <input value=""  type="password" placeholder="Confirm password" id="confPassword"><br>
+				<h6 id ="response" color="red"></h6>
+                <button type="button" onclick="nextForm('loginForm')">Sign Up</button>
+            </form>
+
+            <!-- Login form starts here -->
+            <form id="loginForm" style="display:none;">
+                <label><strong>Email Address:</strong></label><br>
+                <input value=""  type="text" placeholder="Enter Your Email" id="loginEmail"><br>
+
+                <label><strong>Cellphone Number:</strong></label><br>
+                <input value="" type="tel" name="phone" placeholder="[+27] ** *** ****" id="loginPhone"><br>
+
+                <label><strong>Password:</strong></label><br>
+                <input value=""  type="password" placeholder="Enter password" id="loginPassword"><br><br>
+				
+				<h6 id ="response2" color="red"></h6>
+                <a href="#">Forgot Your Password?</a><br>
+
+                <button type="button" onclick="previousForm('loginForm')">Back to Sign Up</button>
+                <button type="button" onclick="nextForm('accessToWebsite')">Login</button>
+            </form>
+	 </div>		
+	<div class="websitebody" id="accessToWebsite" style="display: none;">
+        <header>
+            <nav class="nomarashiya">
+                <a class="kelvinMomo">
+                    <img class="imageStepbyStep" id="image" src="96522279-beauty-salon-and-hairdresser-for-women-symbol-design.jpg" alt="Salon Image">
+                </a>
+                <a class="mol" href="#"><b>HOME</b></a>
+                <a class="mol" onclick="generateTimeSlots()" href="#"><b>TODAY</b></a>
+                <a class="mol" href="#"><b>SCHEDULE</b></a>
+                <a class="mol" href="#"><b>NEWS</b></a>
+                <a class="mol" href="#"><em>BUY</em></a>
+                <a class="mol" href="#"><b>CONTACT</b></a>
+            </nav>
+        </header>
+        <div class="booking">
+            <h4>Welcome to our Hair & Beauty Salon: Where Elegance Meets Masculinity</h4>
+            <h2>Book an Appointment</h2>
+            <p class="sd"><strong>At our Hair & Beauty Salon, we redefine traditional notions of beauty and grooming by seamlessly blending elegance and masculinity...</strong></p>
+            <p class="sa">Indulge in our expert hair care services designed for the modern man...</p>
+            <button class="book-button" onclick="makeAppointment()">Make a Booking</button>
+            <div id="timeSlots"></div>
+        </div>
+        <div class="nono">
+            <div class="pic">
+                <img class="please" src="hair.jfif" alt="Salon Image">
+            </div>
+            <!-- Add more pic divs here with different image sources -->
+        </div>
+    </div>
+   
+
+    <script>
+    function nextForm(nextFormId) {
+		const name = document.getElementById('name').value;
+		const surname = document.getElementById('surname').value;
+		const emailAddress = document.getElementById('email').value;
+		const cellphone = document.getElementById('phone').value;
+		const password = document.getElementById('password').value;
+		const confPass = document.getElementById('confPassword').value;
+
+		var response = document.getElementById('response');
+
+		if (password !== confPass) {
+			response.innerHTML = '<p>The password does not match. Try again!</p>';
+		} else {
+			response.innerHTML = ''; // Clear any previous error message
+			document.getElementById(nextFormId).style.display = "none"; // Hide the current form
+			document.getElementById("accessToWebsite").style.display = "block"; // Show the websitebody div
+		}
+}
+
+	function previousForm(previousFormId) {
+		document.getElementById(previousFormId).style.display = "block";
+		document.getElementById("loginForm").style.display = "none";
+	}
+
+	function login() {
+		const loginEmail = document.getElementById('loginEmail').value;
+		const loginPhone = document.getElementById('loginPhone').value;
+		const loginPassword = document.getElementById('loginPassword').value;
+
+		var responseTwo = document.getElementById('response2');
+
+		if (cellphone === loginPhone && emailAddress === loginEmail && confPass === loginPassword) {
+			alert('Your login was successful');
+			document.getElementById("accessToWebsite").style.display = "block"; // Show the accessToWebsite div
+			document.getElementById("loginForm").style.display = "none"; // Hide the login form
+		}
+		else if (cellphone !== loginPhone) {
+			responseTwo.innerHTML = '<p>The cellphone number does not match. Please try again!</p>';
+		}
+		else if (emailAddress !== loginEmail) {
+			responseTwo.innerHTML = '<p>Your email address does not match. Please try again!</p>';
+		}
+		else if (confPass !== loginPassword) {
+			responseTwo.innerHTML = '<p>Password does not match. Please try again!</p>';
+		}
+		else {
+			responseTwo.innerHTML = '<p>Please try again, something went wrong!</p>';
+		}
+	}
+
+
+	// When actual website loads
+	function generateTimeSlots() {
+		const timeSlots = document.getElementById('timeSlots');
+		const busySlots = [];
+
+		// Generate 10 random busy slots
+		for (let i = 0; i < 10; i++) {
+			const hour = Math.floor(Math.random() * 24);
+			const minute = Math.floor(Math.random() * 60);
+			busySlots.push(`${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`);
+		}
+
+		// Display busy time slots
+		timeSlots.innerHTML = '<strong>Busy Time Slots:</strong><br><br>' + busySlots.join('<br><br>');
+		// You can add more logic here for available time slots if needed
+	}
+	// Call the function to generate busy time slots
+	generateTimeSlots();
+	function makeAppointment() {
+	
+		const name = document.getElementById('name').value;
+		const surname = document.getElementById('surname').value;
+
+		// Get current date and time
+		const now = new Date();
+		const year = now.getFullYear();
+		const month = String(now.getMonth() + 1).padStart(2, '0');
+		const day = String(now.getDate()).padStart(2, '0');
+		const hour = String(now.getHours()).padStart(2, '0');
+		const minute = String(now.getMinutes()).padStart(2, '0');
+
+		// Display appointment details
+		document.write(`<h2>Appointment Confirmation</h2>`);
+		document.write(`<p>Dear ${name} ${surname}, your appointment is scheduled for:</p>`);
+		document.write(`<p>Date: ${year}-${month}-${day}</p>`);
+		document.write(`<p>Time: ${hour}:${minute}</p>`);
+}
+
+    </script>
+</body>
+
+</html>
